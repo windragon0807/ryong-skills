@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ryong YouTube Summary"
+  short_description: "Summarize YouTube links directly from transcript and metadata"
+  icon_small: "./assets/icon-small-v2.png"
+  icon_large: "./assets/icon-large-v2.png"
+  default_prompt: "Use $ryong-youtube-summary to summarize a shared YouTube URL from transcript/chapters/metadata in Korean."
