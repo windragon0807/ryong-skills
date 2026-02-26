@@ -9,6 +9,17 @@ description: Summarize YouTube videos directly from a URL without using external
 
 Use the YouTube URL itself as the primary input and generate the final summary directly.
 Do not route through any intermediate summarizer service.
+This skill is designed to be agent-agnostic and reusable across Codex, Claude, and Cursor.
+
+## Agent Integration Spec
+
+- Manage this skill from a shared Git repository as the single source of truth.
+- Before linking, detect available agent targets (Codex/Claude/Cursor) and ask the user which target to use.
+- For each agent, link `skills/ryong-youtube-summary` into that agent's local `skills` directory via symlink.
+- Prefer symlink over copy so `git pull` updates are reflected immediately in every connected agent.
+- Use `scripts/link-skill.sh ryong-youtube-summary <AGENT_SKILLS_DIR>` to create links consistently.
+- Prefer `scripts/link-skill.sh ryong-youtube-summary` for interactive target discovery and selection.
+- Interactive target discovery requires an interactive terminal; in non-interactive environments, require explicit target path input.
 
 ## Prerequisites
 

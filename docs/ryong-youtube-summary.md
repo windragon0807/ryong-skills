@@ -1,6 +1,6 @@
 # Ryong YouTube Summary
 
-`ryong-youtube-summary`는 유튜브 링크를 직접 읽어 한국어 요약을 만들어주는 Codex 스킬입니다.
+`ryong-youtube-summary`는 유튜브 링크를 직접 읽어 한국어 요약을 만들어주는 에이전트 공용 스킬입니다.
 중간 요약 서비스 없이 `transcript`, `chapters`, `metadata`를 기반으로 결과를 생성합니다.
 
 ## 어떤 문제를 해결하나요?
@@ -65,7 +65,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 
 ## 사용 방법
 
-1. Codex에서 유튜브 링크를 전달합니다.
+1. 사용 중인 에이전트(Codex/Claude/Cursor)에서 유튜브 링크를 전달합니다.
 2. 스킬이 링크에서 `transcript/chapters/metadata`를 수집합니다.
 3. 스킬이 한국어 섹션형 요약으로 정리합니다.
 
@@ -74,6 +74,28 @@ powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 ```bash
 python3 scripts/youtube_context.py "https://www.youtube.com/watch?v=VIDEO_ID" --output /tmp/youtube_context.json
 ```
+
+## 에이전트 연결 (Codex/Claude/Cursor)
+
+레포를 `git pull`로 업데이트하고, 각 에이전트의 skills 디렉터리에 심링크로 연결해 사용합니다.
+
+```bash
+# 레포 루트에서 실행
+./scripts/link-skill.sh ryong-youtube-summary
+
+# 또는 경로 직접 지정
+# ./scripts/link-skill.sh ryong-youtube-summary "$CODEX_HOME/skills"
+./scripts/link-skill.sh ryong-youtube-summary "<CLAUDE_SKILLS_DIR>"
+./scripts/link-skill.sh ryong-youtube-summary "<CURSOR_SKILLS_DIR>"
+```
+
+이 방식이면 스킬 수정 후 복사 배포를 반복할 필요 없이, 레포 업데이트만으로 모든 연결 에이전트가 최신 버전을 사용합니다.
+
+주의:
+
+- 자동 탐색 모드는 인터랙티브 터미널(입력 가능한 셸)에서만 동작합니다.
+- Codex/Claude/Cursor GUI 환경에서도 터미널 패널에서 실행하면 사용할 수 있습니다.
+- 비대화형 실행 환경에서는 `./scripts/link-skill.sh <skill-name> <agent-skills-dir>` 형태로 경로를 직접 지정하세요.
 
 ## 출력 스타일
 
